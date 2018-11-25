@@ -6,6 +6,9 @@ __pycache__/
 # C extensions
 *.so
 
+# Sample data .csv
+sql_scripts/*.csv
+
 # Distribution / packaging
 .Python
 build/
