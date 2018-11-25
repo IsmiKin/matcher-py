@@ -8,6 +8,7 @@ __pycache__/
 
 # Sample data .csv
 sql_scripts/*.csv
+*.csv
 
 # Distribution / packaging
 .Python
