@@ -4,9 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+sqlalchemy = "*"
+psycopg2 = "*"
 
 [dev-packages]
 pytest = "*"
+sqlacodegen = "*"
 
 [requires]
 python_version = "3.6"
