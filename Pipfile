@@ -6,6 +6,7 @@ name = "pypi"
 [packages]
 sqlalchemy = "*"
 psycopg2 = "*"
+fire = "*"
 
 [dev-packages]
 pytest = "*"

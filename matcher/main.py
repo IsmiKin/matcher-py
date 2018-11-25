@@ -1,5 +1,6 @@
 import time
 import logging
+import fire
 
 from data.logic import get_all_sound_recordings
 
@@ -8,12 +9,12 @@ logging.basicConfig(format=FORMAT)
 log = logging.getLogger()
 log.setLevel(logging.INFO)
 
+def get_all_sound_recordings():
+    sound_recordings = get_all_sound_recordings()
+    for record in sound_recordings:
+        log.info('PRINTING RECORD:{}'.format(record.id))
+
 def main():
-    while True:
-        time.sleep(1)
-        sound_recordings = get_all_sound_recordings()
-        for record in sound_recordings:
-            # print(record.id)
-            log.info('PRINTING RECORD:{}'.format(record.id))
+    fire.Fire()
 
 main()
