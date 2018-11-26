@@ -4,7 +4,7 @@ from sqlalchemy import create_engine, or_
 from sqlalchemy.orm import sessionmaker
 
 from data.models.sound_recording import SoundRecording
-from data.utils import validate_isrc
+from utils import validate_isrc
 
 DB_HOST = os.environ.get('DB_URL',
                          'postgresql://{0}:{1}@{2}/{3}'.format(
