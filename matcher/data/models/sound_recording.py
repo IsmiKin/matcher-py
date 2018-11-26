@@ -4,6 +4,7 @@ from sqlalchemy.ext.declarative import declarative_base
 Base = declarative_base()
 metadata = Base.metadata
 
+
 class SoundRecording(Base):
     __tablename__ = 'sound_recordings'
 
@@ -16,3 +17,8 @@ class SoundRecording(Base):
     title = Column(Text, nullable=False)
     isrc = Column(Text)
     duration = Column(Integer)
+
+    def __repr__(self):
+            return "{} by {} ({} min) [{}]".format(
+                self.title, self.artist, self.duration, self.isrc
+                )
