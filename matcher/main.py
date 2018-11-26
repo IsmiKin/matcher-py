@@ -1,13 +1,9 @@
-import logging
 import fire
 
 import data.logic
 import utils
 
-FORMAT = "[%(asctime)s][%(levelname)-5.5s] %(message)s"
-logging.basicConfig(format=FORMAT)
-log = logging.getLogger()
-log.setLevel(logging.INFO)
+log = utils.get_logger()
 
 
 def get_all_from_db():
