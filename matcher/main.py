@@ -1,8 +1,8 @@
 import logging
-import csv
 import fire
 
 import data.logic
+import utils
 
 FORMAT = "[%(asctime)s][%(levelname)-5.5s] %(message)s"
 logging.basicConfig(format=FORMAT)
@@ -20,23 +20,23 @@ def get_candidates(input_records):
     return data.logic.infer_candidates(input_records)
 
 
-def parse_csv(file_path):
-    input_records = []
-    with open(file_path, 'r') as f:
-        input_records = list(csv.DictReader(f, delimiter=','))
+def calculate_match_score__field():
+    pass
 
-    return input_records
+
+def calculate_match_score():
+    pass
 
 
 def process_file(file_path):
-    input_records = parse_csv(file_path)
+    input_records = utils.parse_csv(file_path)
     records_with_candidates = get_candidates(input_records)
     for record in records_with_candidates:
         log.info('-->record {} - {}'.format(record['title'], record['artist']))
         log.info('=> candidates:')
         for candidate in record['candidates']:
             log.info('the candidate => {}'.format(candidate))
-            log.info(candidate)
+            log.info(candidate.id)
             pass
 
 
