@@ -13,6 +13,8 @@ fire = "*"
 flask = "*"
 simplejson = "*"
 gunicorn = "*"
+fuzzywuzzy = "*"
+
 
 [dev-packages]
 pytest = "*"
