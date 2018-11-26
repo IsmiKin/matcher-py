@@ -1,5 +1,4 @@
 import os
-import logging
 from sqlalchemy import create_engine, or_
 from sqlalchemy.orm import sessionmaker
 
