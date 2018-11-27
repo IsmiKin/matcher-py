@@ -23,9 +23,22 @@ services:
     ports:
       - 8080:8080
 
-  # matcher:
-  #   image: matcher:staging
-  #   links:
-  #     - db
-  #   environment:
-  #     DB_URL: postgresql://user_example:password_example@db:5432/matchers
+  matcher:
+    image: matcher:staging
+    links:
+      - db
+    environment:
+      DB_URL: postgresql://user_example:password_example@db:5432/matchers
+
+  matcher-api:
+    image: matcher:staging
+    entrypoint:
+      - gunicorn
+      - -b 0.0.0.0:5000
+      - matcher.api:app
+    links:
+      - db
+    environment:
+      DB_URL: postgresql://user_example:password_example@db:5432/matchers
+    ports:
+      - 5000:5000
