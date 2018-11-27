@@ -1,3 +1,6 @@
+# NOTE: For simplicity we will keep api and matcher in same, but it SHOULD have different
+# Pipfile and get different images built
+
 [[source]]
 url = "https://pypi.python.org/simple"
 verify_ssl = true
@@ -7,6 +10,9 @@ name = "pypi"
 sqlalchemy = "*"
 psycopg2-binary = "*"
 fire = "*"
+flask = "*"
+simplejson = "*"
+gunicorn = "*"
 
 [dev-packages]
 pytest = "*"
