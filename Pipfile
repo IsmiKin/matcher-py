@@ -14,7 +14,8 @@ flask = "*"
 simplejson = "*"
 gunicorn = "*"
 fuzzywuzzy = "*"
-
+python-levenshtein = "*"
+flake8 = "*"
 
 [dev-packages]
 pytest = "*"
