@@ -64,7 +64,9 @@ def calculate_match_score(input_record, db_record):
                 input_record[field_score_rules['column_name']],
                 getattr(db_record, field_score_rules['column_name'])
                 )
-            field_score_percent = field_score * field_score_rules['final_score_percent']
+            field_score_percent = (
+                field_score * field_score_rules['final_score_percent']
+                )
             if field_score_percent == 100:
                 return 100
             elif field_score < field_score_rules['min_acceptable']:

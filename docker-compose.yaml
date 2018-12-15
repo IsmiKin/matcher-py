@@ -25,6 +25,7 @@ services:
 
   matcher:
     image: matcher:staging
+    command: tail -F /dev/null
     links:
       - db
     environment:
