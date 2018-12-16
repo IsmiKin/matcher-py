@@ -26,3 +26,29 @@ class SoundRecordMatch(Base):
 
     files_processed = relationship('FilesProcessed')
     sound_recording = relationship('SoundRecording')
+
+    def __init__(
+        self,
+        file_hash,
+        sound_record_id,
+        row_number,
+        artist,
+        title,
+        isrc,
+        duration,
+        score
+    ):
+        match_id = "{}-{}-{}".format(
+            file_hash,
+            row_number,
+            sound_record_id
+        )
+        self.match_id = match_id
+        self.files_processed_FK = file_hash
+        self.sound_recordings_FK = sound_record_id
+        self.row_number = row_number
+        self.artist = artist
+        self.title = title
+        self.isrc = isrc
+        self.duration = duration
+        self.score = score
