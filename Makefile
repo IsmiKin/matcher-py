@@ -6,7 +6,7 @@ all: test
 
 
 test:
-	@echo "To be defined"
+	pytest matcher
 
 
 clean-test:

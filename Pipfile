@@ -20,6 +20,7 @@ flake8 = "*"
 [dev-packages]
 pytest = "*"
 sqlacodegen = "*"
+mock = "*"
 
 [requires]
 python_version = "3.6"
