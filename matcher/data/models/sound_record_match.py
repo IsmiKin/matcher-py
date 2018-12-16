@@ -1,10 +1,8 @@
 # coding: utf-8
 from sqlalchemy import Column, ForeignKey, Integer, Text
 from sqlalchemy.orm import relationship
-from sqlalchemy.ext.declarative import declarative_base
 
-Base = declarative_base()
-metadata = Base.metadata
+from .base import Base
 
 
 class SoundRecordMatch(Base):

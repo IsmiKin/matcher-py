@@ -1,22 +1,9 @@
-import os
-
-from sqlalchemy import create_engine, or_
-from sqlalchemy.orm import sessionmaker
-
-from data.models import SoundRecording, FilesProcessed, SoundRecordMatch
+from sqlalchemy import or_
 from utils import validate_isrc, get_logger
 
-DB_HOST = os.environ.get('DB_URL',
-                         'postgresql://{0}:{1}@{2}/{3}'.format(
-                            os.environ.get('DB_USERNAME'),
-                            os.environ.get('DB_PASSWORD'),
-                            os.environ.get('DB_HOSTNAME'),
-                            os.environ.get('DB_NAME')
-                            ))
-
-engine = create_engine(DB_HOST, echo=False)
-Session = sessionmaker(bind=engine)
-session = Session()
+from data.models import (SoundRecording, FilesProcessed, SoundRecordMatch,
+                         session
+                         )
 
 log = get_logger()
 
@@ -27,7 +14,7 @@ def get_all_sound_recordings():
 
 # IDEA: if files wouldn't be big, it could be use hashing to detect
 # if the file is really not being used before
-def check_file_already_proccessed(file_hash):
+def file_already_proccessed(file_hash):
     return session.query(FilesProcessed).filter_by(
         hash=file_hash
     ).count() > 0

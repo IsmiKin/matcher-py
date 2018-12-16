@@ -1,8 +1,6 @@
 from sqlalchemy import Column, DateTime, Text, text
-from sqlalchemy.ext.declarative import declarative_base
 
-Base = declarative_base()
-metadata = Base.metadata
+from .base import Base
 
 
 class FilesProcessed(Base):
@@ -16,3 +14,8 @@ class FilesProcessed(Base):
                   )
     filename = Column(Text, nullable=False)
     file_time_update = Column(DateTime, nullable=False)
+
+    def __init__(self, hash, filename, file_time_update):
+        self.hash = hash
+        self.filename = filename
+        self.file_time_update = file_time_update
