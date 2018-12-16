@@ -32,7 +32,7 @@ def process_file(file_path):
     utils.file_exists(file_path)
     filename, mod_time = utils.get_file_metadata(file_path)
     file_hash = utils.get_file_hash(filename, mod_time)
-    if data.logic.check_file_already_proccessed(filename, mod_time):
+    if data.logic.file_already_proccessed(file_hash):
         log.info('The file {} has been already processed')
     else:
         data.logic.create_file_processed(file_hash, filename, mod_time)

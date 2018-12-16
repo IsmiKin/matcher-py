@@ -45,4 +45,5 @@ def get_file_hash(filename, modification_time):
         filename,
         modification_time
     ).encode('utf-8')
-    return hashlib.md5(file_hash_string)
+    md5_file_hash = hashlib.md5(file_hash_string)
+    return md5_file_hash.hexdigest()
