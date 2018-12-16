@@ -7,7 +7,7 @@ CREATE TABLE "sound_recordings" (
 );
 
 CREATE TABLE "files_processed" (
-  "hash" SERIAL PRIMARY KEY,
+  "hash" text PRIMARY KEY,
   "filename" text NOT NULL,
   "file_time_update" timestamp NOT NULL
 );
