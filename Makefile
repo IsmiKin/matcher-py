@@ -1,7 +1,5 @@
 PYTHONPATH=$(CURDIR)
 
-## LOCAL
-
 .PHONY: all
 
 all: test
@@ -15,12 +13,13 @@ clean-test:
 	@echo "To be defined"
 
 
-linting: lint-python
-	@echo "To be defined"
+linting: flake
+	@echo "Running linting"
 
 
-lint-python:
+flake:
 	flake8 matcher
+
 
 setup-dev:
 	 pyenv virtualenv 3.6.1 matcher-env
