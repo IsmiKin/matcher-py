@@ -21,6 +21,7 @@ flake8 = "*"
 pytest = "*"
 sqlacodegen = "*"
 mock = "*"
+coverage = "*"
 
 [requires]
 python_version = "3.6"

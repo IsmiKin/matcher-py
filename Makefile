@@ -6,6 +6,11 @@ all: test
 
 
 test:
+	coverage run --source=matcher/ --omit="*/test*" -m pytest --strict
+	coverage report -m --skip-covered
+
+
+test-simple:
 	pytest matcher
 
 
