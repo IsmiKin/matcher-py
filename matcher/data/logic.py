@@ -20,22 +20,23 @@ def file_already_proccessed(file_hash):
     ).count() > 0
 
 
-# def create_record_match(filename, record, candidate, match_score):
-#     match_id = "{}-{}-{}".format(
-#         filename,
-#         record['row_number'],
-#         candidate['id']
-#     )
-#     new_record_match = SoundRecordMatch(
-#         match_id,
-#         record['row_number'],
-#         record['artist'],
-#         record['title'],
-#         record['isrc'],
-#         record['duration'],
-#         match_score,
-#         # sound_recordings_FK
-#     )
+def create_record_match(file_hash, record, candidate, match_score):
+    # TODO: Add some smart validation here
+    if record['duration'] == '':
+        record['duration'] = None
+
+    new_record_match = SoundRecordMatch(
+        file_hash,
+        getattr(candidate, 'id'),
+        record['row_number'],
+        record['artist'],
+        record['title'],
+        record['isrc'],
+        record['duration'],
+        match_score,
+    )
+    session.add(new_record_match)
+    session.commit()
 
 
 def create_file_processed(file_hash, filename, modification_time):
@@ -57,6 +58,7 @@ def infer_candidates(input_records):
                         ).first()
 
             input_records[index]['candidates'].append(candidates_by_isrc)
+            continue
 
         candidates_artist_title = session.query(SoundRecording).filter(
                         or_(
@@ -67,6 +69,6 @@ def infer_candidates(input_records):
                                 record['title']
                             )),
                             )
-                    ).all()
+                    ).distinct()
         input_records[index]['candidates'].extend(candidates_artist_title)
     return input_records

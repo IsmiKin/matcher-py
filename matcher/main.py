@@ -23,8 +23,12 @@ def process_rows(file_hash, records_with_candidates):
             #     candidate, match_score
             # ))
             if match_score > MIN_ACCEPTABLE_SCORE:
-                pass
-                # data.logic.create_record_match(file_hash, record, candidate, match_score)
+                data.logic.create_record_match(
+                    file_hash,
+                    record,
+                    candidate,
+                    match_score
+                )
                 # store
 
 
