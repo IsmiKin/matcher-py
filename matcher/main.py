@@ -9,7 +9,7 @@ log = utils.get_logger()
 MIN_ACCEPTABLE_SCORE = 70
 
 
-def process_rows(records_with_candidates):
+def process_rows(file_hash, records_with_candidates):
     for record in records_with_candidates:
         # log.info('-->record {} by  {} [{}] ({} min)'.format(
         #     record['title'],
@@ -24,19 +24,21 @@ def process_rows(records_with_candidates):
             # ))
             if match_score > MIN_ACCEPTABLE_SCORE:
                 pass
+                # data.logic.create_record_match(file_hash, record, candidate, match_score)
                 # store
 
 
 def process_file(file_path):
     utils.file_exists(file_path)
-    filename, modification_time = utils.get_file_metadata(file_path)
-    if data.logic.check_file_already_proccessed(filename, modification_time):
+    filename, mod_time = utils.get_file_metadata(file_path)
+    file_hash = utils.get_file_hash(filename, mod_time)
+    if data.logic.check_file_already_proccessed(filename, mod_time):
         log.info('The file {} has been already processed')
     else:
-        data.logic.mark_file_as_processed(filename, modification_time)
+        data.logic.create_file_processed(file_hash, filename, mod_time)
         input_records = utils.parse_csv(file_path)
         records_with_candidates = data.logic.infer_candidates(input_records)
-        process_rows(records_with_candidates)
+        process_rows(file_hash, records_with_candidates)
 
 
 def main():
