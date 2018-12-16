@@ -6,8 +6,8 @@ all: test
 
 
 test:
-	coverage run --source=matcher/ --omit="*/test*" -m pytest --strict
-	coverage report -m --skip-covered
+	coverage run --source=matcher/,matcher/score,matcher/data --omit=*/test* -m pytest --strict
+	coverage report -m
 
 
 test-simple:
