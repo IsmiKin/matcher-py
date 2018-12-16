@@ -33,7 +33,8 @@ def get_logger():
 
 
 def get_file_metadata(file_path):
-    return (os.path.basename(file_path),
+    return (
+            os.path.basename(file_path),
             datetime.fromtimestamp(
                     os.path.getmtime(file_path)
                 ).strftime('%Y-%m-%d %H:%M:%S')
