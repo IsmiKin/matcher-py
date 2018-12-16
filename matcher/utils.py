@@ -2,6 +2,7 @@ import os
 import re
 import csv
 import logging
+import hashlib
 from datetime import datetime
 
 
@@ -37,3 +38,11 @@ def get_file_metadata(file_path):
                     os.path.getmtime(file_path)
                 ).strftime('%Y-%m-%d %H:%M:%S')
             )
+
+
+def get_file_hash(filename, modification_time):
+    file_hash_string = "{}-{}".format(
+        filename,
+        modification_time
+    ).encode('utf-8')
+    return hashlib.md5(file_hash_string)

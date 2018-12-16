@@ -1,9 +1,9 @@
 import os
-import hashlib
+
 from sqlalchemy import create_engine, or_
 from sqlalchemy.orm import sessionmaker
 
-from data.models import SoundRecording, FilesProcessed
+from data.models import SoundRecording, FilesProcessed, SoundRecordMatch
 from utils import validate_isrc, get_logger
 
 DB_HOST = os.environ.get('DB_URL',
@@ -27,15 +27,34 @@ def get_all_sound_recordings():
 
 # IDEA: if files wouldn't be big, it could be use hashing to detect
 # if the file is really not being used before
-def check_file_already_proccessed(filename, modification_time):
-    file_hash_string = "{}-{}".format(
-        filename,
-        modification_time
-    ).encode('utf-8')
-    file_hash = hashlib.md5(file_hash_string)
+def check_file_already_proccessed(file_hash):
     return session.query(FilesProcessed).filter_by(
-        hash=file_hash.hexdigest()
+        hash=file_hash
     ).count() > 0
+
+
+# def create_record_match(filename, record, candidate, match_score):
+#     match_id = "{}-{}-{}".format(
+#         filename,
+#         record['row_number'],
+#         candidate['id']
+#     )
+#     new_record_match = SoundRecordMatch(
+#         match_id,
+#         record['row_number'],
+#         record['artist'],
+#         record['title'],
+#         record['isrc'],
+#         record['duration'],
+#         match_score,
+#         # sound_recordings_FK
+#     )
+
+
+def create_file_processed(file_hash, filename, modification_time):
+    new_file_processed = FilesProcessed(file_hash, filename, modification_time)
+    session.add(new_file_processed)
+    session.commit()
 
 
 def infer_candidates(input_records):
@@ -43,6 +62,7 @@ def infer_candidates(input_records):
     # only isrc and artist (and maybe title), to prevent look up at big table
 
     for index, record in enumerate(input_records):
+        input_records[index]['row_number'] = index
         input_records[index]['candidates'] = []
         if 'isrc' in record and validate_isrc(record['isrc']):
             candidates_by_isrc = session.query(SoundRecording).filter_by(
