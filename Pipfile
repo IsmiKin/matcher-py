@@ -16,6 +16,7 @@ gunicorn = "*"
 fuzzywuzzy = "*"
 python-levenshtein = "*"
 flake8 = "*"
+pykwalify = "*"
 
 [dev-packages]
 pytest = "*"
