@@ -42,11 +42,9 @@ jobs:
             path: test-reports
 
         - codecov/upload:
-            name: Upload to codecov html report
             file: test-reports/coverage/*
 
         - codecov/upload:
-            name: Upload to codecov xml report
             file: test-reports/pytest/junit.xml
 
 
