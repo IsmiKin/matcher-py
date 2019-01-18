@@ -50,12 +50,6 @@ workflows:
           filters:
             branches:
               ignore: master
-          after_build:
-            - run:
-                name: Preview Docker Tag for Build
-                command: |
-                   DOCKER_TAG=$(docker run ismikin/matcher-py:latest --version)
-                   echo "Version for Docker tag is ${DOCKER_TAG}"
 
   docker_with_lifecycle:
     jobs:
@@ -64,10 +58,3 @@ workflows:
           filters:
             branches:
              only: master
-          after_build:
-            - run:
-                name: Publish Docker Tag with SIF Python Version
-                command: |
-                   DOCKER_TAG=$(docker run singularityhub/sif:latest --version)
-                   echo "Version for Docker tag is ${DOCKER_TAG}"
-                   docker tag singularityhub/sif:latest singularityhub/sif:${DOCKER_TAG}
