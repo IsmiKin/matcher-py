@@ -14,7 +14,7 @@ jobs:
 
         - run:
             name: Compose build tag name
-            command: >
+            command: |
               export BRANCH_NAME_CLEAN=${CIRCLE_BRANCH/\//-}
               export SHORT_WORKFLOW_ID=`echo $long_string | tail -c 5`
               export IMG_TAG_VERSION=$BRANCH_NAME_CLEAN:${CIRCLE_WORKFLOW_ID}
