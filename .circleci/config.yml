@@ -1,0 +1,35 @@
+version: 2.1
+orbs:
+  docker-publish: circleci/docker-publish@1.0.0
+jobs:
+  check_and_build_only:
+    executor: docker-publish/docker
+    steps:
+      - checkout
+      - setup_remote_docker
+      - docker-publish/check
+      - docker-publish/build
+      - run:
+          name: Build expanded image with test stuff included
+          command: |
+            docker build -f .circleci/test.Dockerfile \
+              --build-arg baseImage=ismikin/matcher-py:${CIRCLE_WORKFLOW_ID} \
+              -t ismikin/matcher-py:${CIRCLE_WORKFLOW_ID}-test-img .
+
+      - run:
+          name: run tests
+          command: |
+            docker run  \
+              --name test-run \
+              ismikin/matcher-py:${CIRCLE_WORKFLOW_ID}-test-img
+
+      - run:
+          name: Copy out test reports
+          when: always
+          command: |
+            docker cp test-run:/src/test-reports/. test-reports
+
+      - store_test_results:
+          path: test-reports
+
+      - docker-publish/publish
