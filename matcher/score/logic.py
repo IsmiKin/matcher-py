@@ -1,4 +1,6 @@
 from fuzzywuzzy import fuzz
+from .errors import EmptyInputRecord
+
 
 SCORE_METADA_SOUND_RECORDING = [
     {
@@ -22,7 +24,7 @@ SCORE_METADA_SOUND_RECORDING = [
         'final_score_percent': 0.30,
         'optional': False
     },
-    #duration is number, so it will be ignore by now
+    # duration is number, so it will be ignore by now
     # {
     #     'column_name': 'duration',
     #     'type_match': 'duration',
@@ -48,7 +50,8 @@ def match_score_field(field_rules, input_record, db_record):
     #     ratio = match_duration(input_record, db_record)
     # else:
     ratio = field_rules['type_match'](input_record, db_record)
-    # log.info('input_record: {} --- db record {} => ratio: {}'.format(input_record, db_record, ratio))
+    # log.info('input_record: {} --- db record {} => ratio: {}'.format(
+    #     input_record, db_record, ratio))
     return ratio
 
 
@@ -56,6 +59,9 @@ def match_score_field(field_rules, input_record, db_record):
 # lose precission
 def calculate_match_score(input_record, db_record):
     final_score = 0.00
+
+    if input_record is None:
+        raise EmptyInputRecord()
 
     if db_record is not None:
         for field_score_rules in SCORE_METADA_SOUND_RECORDING:

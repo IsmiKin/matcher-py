@@ -6,7 +6,7 @@ class Error(Exception):
     """
     message = 'An unknown error occured.'
 
-    def __init__(self, details, extra=None):
+    def __init__(self, details=None, extra=None):
         self.details = details
         self.extra = extra
 

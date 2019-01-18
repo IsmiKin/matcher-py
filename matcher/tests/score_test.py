@@ -3,6 +3,7 @@ import pytest
 from matcher.score.logic import calculate_match_score
 from matcher.score.errors import EmptyInputRecord
 
+
 @pytest.mark.parametrize(
     'input_record, db_record',
     [
