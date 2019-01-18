@@ -4,7 +4,7 @@ orbs:
   codecov: codecov/codecov@1.0.2
 
 jobs:
-    build_and_test:
+    build-and-test:
       docker:
         - image: circleci/python:3
       steps:
@@ -41,18 +41,23 @@ jobs:
         - store_test_results:
             path: test-reports
 
+        - codecov/upload:
+            name: Upload to codecov html report
+            file: test-reports/coverage/*
+
+        - codecov/upload:
+            name: Upload to codecov xml report
+            file: test-reports/pytest/junit.xml
+
 
 workflows:
+  version: 2.1
   build_without_publishing_job:
     jobs:
-      - build_and_test
-      - codecov/upload:
-        requires:
-          - build_and_test
-        file: test-reports
+      - build-and-test
       - docker-publish/publish:
           requires:
-            - codecov/upload
+            - build-and-test
           deploy: false
           tag: latest
           filters:
@@ -61,9 +66,10 @@ workflows:
 
   docker_with_lifecycle:
     jobs:
-      - codecov/upload:
-        file: {{ coverage_report_filepath }}
+      - build-and-test
       - docker-publish/publish:
+          requires:
+            - build-and-test
           tag: latest
           filters:
             branches:
