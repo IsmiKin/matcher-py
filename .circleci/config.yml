@@ -14,25 +14,22 @@ jobs:
 
         - run:
             name: Build docker image
-            command: |
-              export BRANCH_NAME_CLEAN=${CIRCLE_BRANCH/\//-}
-              export SHORT_WORKFLOW_ID=`echo $long_string | tail -c 5`
-              export IMG_TAG_VERSION=$BRANCH_NAME_CLEAN__${CIRCLE_WORKFLOW_ID}
-              docker build -t ismikin/matcher-py:${IMG_TAG_VERSION} .
+            command: >
+              docker build -t ismikin/matcher-py:${CIRCLE_BRANCH}-${CIRCLE_WORKFLOW_ID} .
 
         - run:
             name: Build expanded image with test stuff included
             command: |
               docker build -f .circleci/test.Dockerfile \
-                --build-arg baseImage=ismikin/matcher-py:${IMG_TAG_VERSION} \
-                -t ismikin/matcher-py:${IMG_TAG_VERSION}-test-img .
+                --build-arg baseImage=ismikin/matcher-py:${CIRCLE_BRANCH}-${CIRCLE_WORKFLOW_ID} \
+                -t ismikin/matcher-py:${CIRCLE_BRANCH}-${CIRCLE_WORKFLOW_ID}-test-img .
 
         - run:
             name: Run tests
             command: |
               docker run  \
                 --name test-run \
-                ismikin/matcher-py:${IMG_TAG_VERSION}-test-img
+                ismikin/matcher-py:${CIRCLE_BRANCH}-${CIRCLE_WORKFLOW_ID}-test-img
 
         - run:
             name: Copy out test reports
@@ -45,9 +42,32 @@ jobs:
 
 
 workflows:
-  docker_ci:
+  build_without_publishing_job:
     jobs:
-      - build_and_test
       - docker-publish/publish:
-          requires:
-            - build_and_test
+          deploy: false
+          tag: latest
+          filters:
+            branches:
+              ignore: master
+          after_build:
+            - run:
+                name: Preview Docker Tag for Build
+                command: |
+                   DOCKER_TAG=$(docker run ismikin/matcher-py:latest --version)
+                   echo "Version for Docker tag is ${DOCKER_TAG}"
+
+  docker_with_lifecycle:
+    jobs:
+      - docker-publish/publish:
+          tag: latest
+          filters:
+            branches:
+             only: master
+          after_build:
+            - run:
+                name: Publish Docker Tag with SIF Python Version
+                command: |
+                   DOCKER_TAG=$(docker run singularityhub/sif:latest --version)
+                   echo "Version for Docker tag is ${DOCKER_TAG}"
+                   docker tag singularityhub/sif:latest singularityhub/sif:${DOCKER_TAG}
