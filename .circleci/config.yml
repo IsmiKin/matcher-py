@@ -13,6 +13,12 @@ jobs:
             docker_layer_caching: true
 
         - run:
+            name: Build docker image
+            command: >
+              docker build --build-arg PIP_EXTRA_INDEX_URL_NAME=${PIP_EXTRA_INDEX_URL_NAME}
+              -t blackwoodseven/fma-api:${CIRCLE_WORKFLOW_ID} .
+
+        - run:
             name: Build expanded image with test stuff included
             command: |
               docker build -f .circleci/test.Dockerfile \
