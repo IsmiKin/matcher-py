@@ -1,4 +1,6 @@
 from fuzzywuzzy import fuzz
+from .errors import EmptyInputRecord
+
 
 SCORE_METADA_SOUND_RECORDING = [
     {
@@ -57,7 +59,9 @@ def match_score_field(field_rules, input_record, db_record):
 # lose precission
 def calculate_match_score(input_record, db_record):
     final_score = 0.00
-    # field_scores = {}
+    if input_record is None:
+        raise EmptyInputRecord()
+
     if db_record is not None:
         for field_score_rules in SCORE_METADA_SOUND_RECORDING:
             field_score = match_score_field(
