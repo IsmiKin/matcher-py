@@ -1,6 +1,6 @@
 version: 2.1
 orbs:
-  docker-publish: circleci/docker-publish@1.0.0
+  docker-publish: circleci/docker-publish@0.1.4
 jobs:
   check_and_build_only:
     executor: docker-publish/docker
