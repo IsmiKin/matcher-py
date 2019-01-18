@@ -15,21 +15,21 @@ jobs:
         - run:
             name: Build docker image
             command: >
-              docker build -t ismikin/matcher-py:${CIRCLE_WORKFLOW_ID} .
+              docker build -t ismikin/matcher-py:${CIRCLE_BRANCH}-${CIRCLE_WORKFLOW_ID} .
 
         - run:
             name: Build expanded image with test stuff included
             command: |
               docker build -f .circleci/test.Dockerfile \
-                --build-arg baseImage=ismikin/matcher-py:${CIRCLE_WORKFLOW_ID} \
-                -t ismikin/matcher-py:${CIRCLE_WORKFLOW_ID}-test-img .
+                --build-arg baseImage=ismikin/matcher-py:${CIRCLE_BRANCH}-${CIRCLE_WORKFLOW_ID} \
+                -t ismikin/matcher-py:${CIRCLE_BRANCH}-${CIRCLE_WORKFLOW_ID}-test-img .
 
         - run:
             name: Run tests
             command: |
               docker run  \
                 --name test-run \
-                ismikin/matcher-py:${CIRCLE_WORKFLOW_ID}-test-img
+                ismikin/matcher-py:${CIRCLE_BRANCH}-${CIRCLE_WORKFLOW_ID}-test-img
 
         - run:
             name: Copy out test reports
@@ -46,6 +46,5 @@ workflows:
     jobs:
       - build_and_test
       - docker-publish/publish:
-          tag: ${CIRCLE_BRANCH}-${CIRCLE_WORKFLOW_ID}
           requires:
             - build_and_test
