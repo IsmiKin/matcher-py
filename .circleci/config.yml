@@ -64,7 +64,10 @@ workflows:
 
   docker_with_lifecycle:
     jobs:
-      - build-and-test
+      - build-and-test:
+          filters:
+            branches:
+             only: master
       - docker-publish/publish:
           requires:
             - build-and-test
