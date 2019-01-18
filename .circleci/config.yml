@@ -15,8 +15,7 @@ jobs:
         - run:
             name: Build docker image
             command: >
-              docker build --build-arg PIP_EXTRA_INDEX_URL_NAME=${PIP_EXTRA_INDEX_URL_NAME}
-              -t blackwoodseven/fma-api:${CIRCLE_WORKFLOW_ID} .
+              docker build -t ismikin/matcher-py:${CIRCLE_WORKFLOW_ID} .
 
         - run:
             name: Build expanded image with test stuff included
@@ -46,4 +45,6 @@ workflows:
   docker_ci:
     jobs:
       - build_and_test
-      - docker-publish/publish
+      - docker-publish/publish:
+          requires:
+            - build
