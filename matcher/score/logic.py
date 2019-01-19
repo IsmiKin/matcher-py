@@ -24,7 +24,7 @@ SCORE_METADA_SOUND_RECORDING = [
         'final_score_percent': 0.30,
         'optional': False
     },
-    #duration is number, so it will be ignore by now
+    # duration is number, so it will be ignore by now
     # {
     #     'column_name': 'duration',
     #     'type_match': 'duration',
