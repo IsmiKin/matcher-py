@@ -42,7 +42,7 @@ jobs:
             path: test-reports
 
         - codecov/upload:
-            file: test-reports/coverage/*
+            file: test-reports/coverage/
 
         - codecov/upload:
             file: test-reports/pytest/junit.xml
