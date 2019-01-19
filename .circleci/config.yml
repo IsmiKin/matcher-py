@@ -40,7 +40,10 @@ jobs:
 
 
         - codecov/upload:
-            file: test-reports/pytest/junit.xml
+            file: /home/circleci/project/test-reports
+
+        - codecov/upload:
+            file: /home/circleci/project/test-reports/pytest/junit.xml
 
         - store_test_results:
             path: test-reports
