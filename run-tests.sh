@@ -1,6 +1,6 @@
 #!/bin/sh
 
-coverage run --source=matcher/,matcher/score,matcher/data -m pytest --strict -rw --ignore=venv/ --junitxml=test-reports/pytest/junit.xml
+coverage run --source=matcher/,matcher/score,matcher/data -m pytest --strict -rw --ignore=venv/ --cache-clear --junitxml=test-reports/pytest/junit.xml
 
 coverage_success=$?
 
