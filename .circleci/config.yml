@@ -41,7 +41,8 @@ jobs:
         - run:
             name: Upload to codecov (orb doesnt work..)
             command: |
-              bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
+              ci_env=`bash <(curl -s https://codecov.io/env)`
+              bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN -s test-reports/
 
         - store_test_results:
             path: test-reports
