@@ -38,12 +38,10 @@ jobs:
             command: |
               docker cp test-run:/src/test-reports/. test-reports
 
-
-        - codecov/upload:
-            file: /home/circleci/project/test-reports
-
-        - codecov/upload:
-            file: /home/circleci/project/test-reports/pytest/junit.xml
+        - run:
+            name: Upload to codecov (orb doesnt work..)
+            command: |
+              bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN
 
         - store_test_results:
             path: test-reports
