@@ -38,14 +38,13 @@ jobs:
             command: |
               docker cp test-run:/src/test-reports/. test-reports
 
-        - store_test_results:
-            path: test-reports
-
-        - codecov/upload:
-            file: test-reports/coverage/
 
         - codecov/upload:
             file: test-reports/pytest/junit.xml
+
+        - store_test_results:
+            path: test-reports
+
 
 
 workflows:
