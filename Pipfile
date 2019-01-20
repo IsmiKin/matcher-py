@@ -23,6 +23,7 @@ pytest = "*"
 sqlacodegen = "*"
 mock = "*"
 coverage = "*"
+coveralls = "*"
 
 [requires]
 python_version = "3.6"

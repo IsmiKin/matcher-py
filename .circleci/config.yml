@@ -42,9 +42,9 @@ jobs:
               echo "Copy report files from docker test container"
               docker cp test-run:/src/test-reports/. test-reports
               ls test-reports
-              pip install pipenv
-              pipenv install
-              sudo pip install pytest coverage pytest-cov coveralls
+              sudo pip install pipenv --dev
+              pipenv shell
+              pipenv install --dev
               coverage run --source=matcher/,matcher/score,matcher/data -m pytest --strict -rw --ignore=venv/ --cache-clear
               coverage xml -o coverage.xml
               echo "Run coveralls"
