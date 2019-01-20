@@ -2,7 +2,7 @@
 [![CircleCI](https://circleci.com/gh/IsmiKin/matcher-py.svg?style=svg)](https://circleci.com/gh/IsmiKin/matcher-py)
 [![codecov](https://codecov.io/gh/IsmiKin/matcher-py/branch/master/graph/badge.svg)](https://codecov.io/gh/IsmiKin/matcher-py)
 
-Just another small project - matching inputs from results and storing them
+Just another small project - matching inputs from results and storing them.
 
 # Setup
 
