@@ -45,7 +45,7 @@ jobs:
               coveralls
 
         - codecov/upload:
-            file: /home/circleci/project/test-reports/pytest/junit.xml
+            file: /home/circleci/project/test-reports/.coverage
 
         - store_test_results:
             path: test-reports
