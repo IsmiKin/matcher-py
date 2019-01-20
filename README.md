@@ -1,5 +1,6 @@
 # matcher-py
 [![CircleCI](https://circleci.com/gh/IsmiKin/matcher-py.svg?style=svg)](https://circleci.com/gh/IsmiKin/matcher-py)
+[![Coverage Status](https://coveralls.io/repos/github/IsmiKin/matcher-py/badge.svg?branch=master)](https://coveralls.io/github/IsmiKin/matcher-py?branch=master)
 [![codecov](https://codecov.io/gh/IsmiKin/matcher-py/branch/master/graph/badge.svg)](https://codecov.io/gh/IsmiKin/matcher-py)
 
 Just another small project - matching inputs from results and storing them.
