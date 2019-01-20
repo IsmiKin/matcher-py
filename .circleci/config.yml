@@ -39,11 +39,9 @@ jobs:
               echo "Copy report files from docker test container"
               docker cp test-run:/src/test-reports/. test-reports
               ls test-reports
-              echo "Copy coverage file to root so coveralls can discover it"
-              cp test-reports/coverage.xml .
               echo "Install and run coveralls"
               sudo pip install coveralls
-              cd /home/circleci/project/test-reports/
+              cd test-reports
               coveralls
 
         - codecov/upload:
