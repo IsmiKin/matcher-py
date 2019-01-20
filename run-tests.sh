@@ -1,6 +1,6 @@
 #!/bin/sh
 
-pytest --cov=matcher --cov-report=xml --cache-clear src/matcher/tests
+pytest --cov=matcher --cov-report=xml --cache-clear matcher/tests
 
 coverage_success=$?
 
