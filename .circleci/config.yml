@@ -42,7 +42,7 @@ jobs:
             name: Upload to codecov (orb doesnt work..)
             command: |
               ci_env=`bash <(curl -s https://codecov.io/env)`
-              bash <(curl -s https://codecov.io/bash) -t $CODECOV_TOKEN -f /home/circleci/project/test-reports/pytest/junit.xml
+              bash <(curl -s https://codecov.io/bash) -c -t $CODECOV_TOKEN -f /home/circleci/project/test-reports/pytest/junit.xml -F tests
 
         - store_test_results:
             path: test-reports
