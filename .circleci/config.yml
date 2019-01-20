@@ -45,7 +45,7 @@ jobs:
             name: Upload to coveralls (hope this one works..)
             command: |
               sudo pip install coveralls
-              coveralls
+              coveralls --data_file=/home/circleci/project/test-reports/pytest/junit.xml
 
         - store_test_results:
             path: test-reports
