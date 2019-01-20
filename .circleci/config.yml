@@ -36,16 +36,16 @@ jobs:
             name: Copy out test reports
             when: always
             command: |
-              docker cp test-run:/src/test-reports/. test-reports
+              docker cp test-run:/src/coverage.xml coverage.xml
 
         - codecov/upload:
-            file: /home/circleci/project/test-reports/pytest/junit.xml
+            file: /home/circleci/project/coverage.xml
 
         - run:
             name: Upload to coveralls (hope this one works..)
             command: |
               sudo pip install coveralls
-              coveralls --data_file=/home/circleci/project/test-reports/pytest/junit.xml
+              coveralls
 
         - store_test_results:
             path: test-reports
