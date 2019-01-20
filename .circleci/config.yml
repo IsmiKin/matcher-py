@@ -38,11 +38,14 @@ jobs:
             command: |
               docker cp test-run:/src/test-reports/. test-reports
 
+        - codecov/upload:
+            file: /home/circleci/project/test-reports/pytest/junit.xml
+
         - run:
-            name: Upload to codecov (orb doesnt work..)
+            name: Upload to coveralls (hope this one works..)
             command: |
-              ci_env=`bash <(curl -s https://codecov.io/env)`
-              bash <(curl -s https://codecov.io/bash) -c -t $CODECOV_TOKEN -f /home/circleci/project/test-reports/pytest/junit.xml -F tests
+              sudo pip install coveralls
+              coveralls
 
         - store_test_results:
             path: test-reports
