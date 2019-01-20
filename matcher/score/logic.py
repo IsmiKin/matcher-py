@@ -50,8 +50,8 @@ def match_score_field(field_rules, input_record, db_record):
     #     ratio = match_duration(input_record, db_record)
     # else:
     ratio = field_rules['type_match'](input_record, db_record)
-    # log.info('input_record: {} --- db record {} => ratio: {}'.format(
-    #     input_record, db_record, ratio))
+    # log.info('input_record: {} --- db record {} =>
+    # ratio: {}'.format(input_record, db_record, ratio))
     return ratio
 
 
@@ -59,7 +59,6 @@ def match_score_field(field_rules, input_record, db_record):
 # lose precission
 def calculate_match_score(input_record, db_record):
     final_score = 0.00
-
     if input_record is None:
         raise EmptyInputRecord()
 

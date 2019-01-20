@@ -1,0 +1,78 @@
+version: 2.1
+orbs:
+  docker-publish: circleci/docker-publish@0.1.4
+  codecov: codecov/codecov@1.0.2
+
+jobs:
+    build-and-test:
+      docker:
+        - image: circleci/python:3
+      steps:
+        - checkout
+
+        - setup_remote_docker:
+            docker_layer_caching: true
+
+        - run:
+            name: Build docker image
+            command: >
+              docker build -t ismikin/matcher-py:${CIRCLE_WORKFLOW_ID} .
+
+        - run:
+            name: Build expanded image with test stuff included
+            command: |
+              docker build -f .circleci/test.Dockerfile \
+                --build-arg baseImage=ismikin/matcher-py:${CIRCLE_WORKFLOW_ID} \
+                -t ismikin/matcher-py:${CIRCLE_WORKFLOW_ID}-test-img .
+
+        - run:
+            name: Run tests
+            command: |
+              docker run  \
+                --name test-run \
+                ismikin/matcher-py:${CIRCLE_WORKFLOW_ID}-test-img
+
+        - run:
+            name: Copy out test reports
+            when: always
+            command: |
+              docker cp test-run:/src/test-reports/. test-reports
+
+        - run:
+            name: Upload to codecov (orb doesnt work..)
+            command: |
+              ci_env=`bash <(curl -s https://codecov.io/env)`
+              bash <(curl -s https://codecov.io/bash) -c -t $CODECOV_TOKEN -f /home/circleci/project/test-reports/pytest/junit.xml -F tests
+
+        - store_test_results:
+            path: test-reports
+
+
+
+workflows:
+  version: 2.1
+  build_without_publishing_job:
+    jobs:
+      - build-and-test
+      - docker-publish/publish:
+          requires:
+            - build-and-test
+          deploy: false
+          tag: latest
+          filters:
+            branches:
+              ignore: master
+
+  docker_with_lifecycle:
+    jobs:
+      - build-and-test:
+          filters:
+            branches:
+             only: master
+      - docker-publish/publish:
+          requires:
+            - build-and-test
+          tag: latest
+          filters:
+            branches:
+             only: master
