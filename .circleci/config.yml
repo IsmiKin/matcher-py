@@ -6,7 +6,7 @@ orbs:
 jobs:
     build-and-test:
       docker:
-        - image: circleci/python:3
+        - image: circleci/python:3.6
       steps:
         - checkout
 
@@ -32,20 +32,25 @@ jobs:
                 --name test-run \
                 ismikin/matcher-py:${CIRCLE_WORKFLOW_ID}-test-img
 
+        # Repeat tests to upload to coveralls
+        # FIXME: it because the source changes, so inside the docker it's
+        # on /src so it doesnt match with the repo file structure
         - run:
-            name: Copy out test reports
+            name: Copy out test reports and upload to Coveralls
             when: always
             command: |
+              echo "Copy report files from docker test container"
               docker cp test-run:/src/test-reports/. test-reports
+              ls test-reports
+              sudo pip install pipenv
+              pipenv install --dev
+              pipenv run coverage run --source=matcher/,matcher/score,matcher/data -m pytest --strict -rw --ignore=venv/ --cache-clear
+              pipenv run coverage xml -o coverage.xml
+              echo "Run coveralls"
+              pipenv run coveralls
 
         - codecov/upload:
-            file: /home/circleci/project/test-reports/pytest/junit.xml
-
-        - run:
-            name: Upload to coveralls (hope this one works..)
-            command: |
-              sudo pip install coveralls
-              coveralls
+            file: /home/circleci/project/test-reports/.coverage
 
         - store_test_results:
             path: test-reports
