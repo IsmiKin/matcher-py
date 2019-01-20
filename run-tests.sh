@@ -6,8 +6,9 @@ coverage_success=$?
 
 coverage report -m --skip-covered
 coverage html -d test-reports/coverage
+coverage xml  -o test-reports/coverage.xml
 
-flake8 matcher tests
+flake8 matcher
 
 flake8_success=$?
 
