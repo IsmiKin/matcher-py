@@ -43,6 +43,7 @@ jobs:
               cp test-reports/coverage.xml .
               echo "Install and run coveralls"
               sudo pip install coveralls
+              cd /home/circleci/project/test-reports/
               coveralls
 
         - codecov/upload:
