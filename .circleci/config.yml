@@ -7,10 +7,6 @@ jobs:
     build-and-test:
       docker:
         - image: circleci/python:3
-      dependencies:
-        pre:
-          - pip install coveralls
-
       steps:
         - checkout
 
@@ -48,7 +44,7 @@ jobs:
         - run:
             name: Upload to coveralls (hope this one works..)
             command: |
-              pip install coveralls
+              sudo pip install coveralls
               coveralls
 
         - store_test_results:
