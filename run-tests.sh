@@ -1,5 +1,5 @@
 #!/bin/sh
-
+echo 'lala'
 coverage run --source=matcher/,matcher/score,matcher/data -m pytest --strict -rw --ignore=venv/ --cache-clear
 
 coverage_success=$?
