@@ -37,6 +37,7 @@ jobs:
             when: always
             command: |
               docker cp test-run:/src/test-reports/. test-reports
+              cp test-reports/coverage.xml .
 
         - codecov/upload:
             file: /home/circleci/project/test-reports/pytest/junit.xml
