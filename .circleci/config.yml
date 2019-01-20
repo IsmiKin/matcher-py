@@ -42,7 +42,7 @@ jobs:
               echo "Copy report files from docker test container"
               docker cp test-run:/src/test-reports/. test-reports
               ls test-reports
-              sudo pip install pipenv --dev
+              sudo pip install pipenv
               pipenv shell
               pipenv install --dev
               coverage run --source=matcher/,matcher/score,matcher/data -m pytest --strict -rw --ignore=venv/ --cache-clear
