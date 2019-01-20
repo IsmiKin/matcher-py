@@ -1,12 +1,12 @@
 FROM python:3.6
 
-WORKDIR /
+WORKDIR /src
 
 RUN pip install --no-cache --upgrade pip pipenv
 
-COPY ./Pipfile* /
+COPY ./Pipfile* /src/
 RUN pipenv install --system --deploy
 
-COPY /. /
+COPY /. /src
 
 CMD [ "python", "./matcher/main.py" ]

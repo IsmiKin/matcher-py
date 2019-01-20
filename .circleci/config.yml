@@ -32,6 +32,9 @@ jobs:
                 --name test-run \
                 ismikin/matcher-py:${CIRCLE_WORKFLOW_ID}-test-img
 
+        # Repeat tests to upload to coveralls
+        # FIXME: it because the source changes, so inside the docker it's
+        # on /src so it doesnt match with the repo file structure
         - run:
             name: Copy out test reports and upload to Coveralls
             when: always
@@ -39,9 +42,10 @@ jobs:
               echo "Copy report files from docker test container"
               docker cp test-run:/src/test-reports/. test-reports
               ls test-reports
-              echo "Install and run coveralls"
-              sudo pip install coveralls
-              cd test-reports
+              sudo pip install pytest coverage pytest-cov coveralls
+              coverage run --source=matcher/,matcher/score,matcher/data -m pytest --strict -rw --ignore=venv/ --cache-clear
+              coverage xml -o coverage.xml
+              echo "Run coveralls"
               coveralls
 
         - codecov/upload:
