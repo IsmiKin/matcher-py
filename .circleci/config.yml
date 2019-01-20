@@ -42,7 +42,8 @@ jobs:
               echo "Copy report files from docker test container"
               docker cp test-run:/src/test-reports/. test-reports
               ls test-reports
-              pip install pyenv pipenv
+              curl https://pyenv.run | bash
+              pip install pipenv
               pyenv virtualenv 3.6.1 matcher-env
               pyenv activate matcher-env
               pipenv install
