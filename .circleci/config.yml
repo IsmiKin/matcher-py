@@ -33,20 +33,16 @@ jobs:
                 ismikin/matcher-py:${CIRCLE_WORKFLOW_ID}-test-img
 
         - run:
-            name: Copy out test reports
+            name: Copy out test reports and upload to Coveralls
             when: always
             command: |
               docker cp test-run:/src/test-reports/. test-reports
               cp test-reports/coverage.xml .
+              sudo pip install coveralls
+              coveralls
 
         - codecov/upload:
             file: /home/circleci/project/test-reports/pytest/junit.xml
-
-        - run:
-            name: Upload to coveralls (hope this one works..)
-            command: |
-              sudo pip install coveralls
-              coveralls
 
         - store_test_results:
             path: test-reports
