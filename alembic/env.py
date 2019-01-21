@@ -3,11 +3,11 @@ from __future__ import with_statement
 from logging.config import fileConfig
 import os
 
-from sqlalchemy import engine_from_config, create_engine
-from sqlalchemy import pool
+from sqlalchemy import create_engine
 
 from alembic import context
 
+from matcher.data.models.base import Base
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
 config = context.config
@@ -18,9 +18,8 @@ fileConfig(config.config_file_name)
 
 # add your model's MetaData object here
 # for 'autogenerate' support
-# from matcher.data.models import *
-# target_metadata = matcher.data.models.Base.metadata
-target_metadata = None
+target_metadata = Base.metadata
+# target_metadata = None
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
