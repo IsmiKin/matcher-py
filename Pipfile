@@ -17,6 +17,7 @@ fuzzywuzzy = "*"
 python-levenshtein = "*"
 flake8 = "*"
 pykwalify = "*"
+alembic = "*"
 
 [dev-packages]
 pytest = "*"

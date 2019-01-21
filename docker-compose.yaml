@@ -8,7 +8,8 @@ services:
     volumes:
       # uncomment to maintan persistance
         #- ./postgresql/:/var/lib/postgresql/data/
-      - ./sql_scripts:/docker-entrypoint-initdb.d/
+      # uncomment to use init scripts on sql_scripts folder
+      # - ./sql_scripts:/docker-entrypoint-initdb.d/
     environment:
       POSTGRES_PASSWORD: password_example
       POSTGRES_USER: user_example
