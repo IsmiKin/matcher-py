@@ -109,7 +109,21 @@ services:
       - redis
     environment:
       BROKER_URL: redis://redis:6379/0
-      BACKEND_RESULT_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: db+postgresql://user_example:password_example@db:5432/matchers
     depends_on:
       - redis
       - migration
+
+
+  ## web ui to manage Celery app
+  flower:
+    image: mher/flower
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - FLOWER_PORT=8888
+    links:
+      - redis
+    depends_on:
+      - matcher-celery
+    ports:
+      - 8888:8888
