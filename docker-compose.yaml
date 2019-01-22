@@ -67,7 +67,7 @@ services:
         condition: service_healthy
 
 
-  ## Logic to score the input and store
+  ## Logic to score the input and store and for testing using CLI
   matcher:
     image: matcher:staging
     build: .
@@ -94,4 +94,22 @@ services:
     ports:
       - 5000:5000
     depends_on:
+      - migration
+
+  ## Celery worker to process data
+  matcher-celery:
+    image: matcher:staging
+    entrypoint:
+      - celery
+      - -A
+      - matcher.celery_app
+      - worker
+      - --loglevel=info
+    links:
+      - redis
+    environment:
+      BROKER_URL: redis://redis:6379/0
+      BACKEND_RESULT_URL: redis://redis:6379/0
+    depends_on:
+      - redis
       - migration

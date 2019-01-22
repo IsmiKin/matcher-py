@@ -1,9 +1,10 @@
+import os
 from celery import Celery
 
 app = Celery(
     'matcher',
-    broker='redis://localhost:6379/0',
-    backend='redis://localhost:6379/0'
+    broker=os.environ.get('BROKER_URL', 'redis://localhost:6379/0'),
+    backend=os.environ.get('BACKEND_RESULT_URL', 'redis://localhost:6379/0')
 )
 
 
