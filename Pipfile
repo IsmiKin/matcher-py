@@ -1,0 +1,32 @@
+# NOTE: For simplicity we will keep api and matcher in same, but it SHOULD have different
+# Pipfile and get different images built
+
+[[source]]
+url = "https://pypi.python.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+sqlalchemy = "*"
+psycopg2-binary = "*"
+fire = "*"
+flask = "*"
+simplejson = "*"
+gunicorn = "*"
+fuzzywuzzy = "*"
+python-levenshtein = "*"
+flake8 = "*"
+pykwalify = "*"
+alembic = "*"
+celery = "*"
+redis = "*"
+
+[dev-packages]
+pytest = "*"
+sqlacodegen = "*"
+mock = "*"
+coverage = "*"
+coveralls = "*"
+
+[requires]
+python_version = "3.6"
