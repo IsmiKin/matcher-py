@@ -25,12 +25,34 @@ services:
     ports:
       - 5432:5432
 
+  redis:
+    container_name: redis
+    hostname: redis
+    image: redis
+
+
+  ## web ui for Postgres (alternative: DBeaver installed on OS)
   adminer:
     image: adminer
     restart: always
     ports:
       - 8080:8080
 
+
+  ## web ui + cli to manage redis
+  redis-commander:
+    container_name: redis-commander
+    hostname: redis-commander
+    image: rediscommander/redis-commander:latest
+    restart: always
+    environment:
+      - REDIS_HOSTS=local:redis:6379
+    ports:
+      - "8081:8081"
+    depends_on:
+      - redis
+
+  ## Postgres db migrations with Alembic
   migration:
     build: .
     image: matcher:staging
@@ -44,6 +66,8 @@ services:
       db:
         condition: service_healthy
 
+
+  ## Logic to score the input and store and for testing using CLI
   matcher:
     image: matcher:staging
     build: .
@@ -55,6 +79,8 @@ services:
     depends_on:
       - migration
 
+
+  ## Flask API to expose data
   matcher-api:
     image: matcher:staging
     entrypoint:
@@ -69,3 +95,35 @@ services:
       - 5000:5000
     depends_on:
       - migration
+
+  ## Celery worker to process data
+  matcher-celery:
+    image: matcher:staging
+    entrypoint:
+      - celery
+      - -A
+      - matcher.celery_app
+      - worker
+      - --loglevel=info
+    links:
+      - redis
+    environment:
+      BROKER_URL: redis://redis:6379/0
+      CELERY_RESULT_BACKEND: redis://redis:6379/0
+    depends_on:
+      - redis
+      - migration
+
+
+  ## web ui to manage Celery app
+  flower:
+    image: mher/flower
+    environment:
+      - CELERY_BROKER_URL=redis://redis:6379/0
+      - FLOWER_PORT=8888
+    links:
+      - redis
+    depends_on:
+      - matcher-celery
+    ports:
+      - 8888:8888

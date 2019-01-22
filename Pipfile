@@ -18,6 +18,8 @@ python-levenshtein = "*"
 flake8 = "*"
 pykwalify = "*"
 alembic = "*"
+celery = "*"
+redis = "*"
 
 [dev-packages]
 pytest = "*"
