@@ -39,10 +39,12 @@ def process_file(file_path):
     if data.logic.file_already_proccessed(file_hash):
         log.info('The file {} has been already processed')
     else:
+        log.info('Start processing {}'.format(filename))
         data.logic.create_file_processed(file_hash, filename, mod_time)
         input_records = utils.parse_csv(file_path)
         records_with_candidates = data.logic.infer_candidates(input_records)
         process_rows(file_hash, records_with_candidates)
+        log.info('Finished processing {}'.format(filename))
 
 
 def main():
