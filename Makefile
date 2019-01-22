@@ -35,19 +35,22 @@ install:
 
 
 build:
-	docker build -t matcher:staging .
+	docker-compose build
 
 
 clean-build:
+	docker rm $(docker ps -aq -f status=exited)
 	docker rmi matcher*
 
 
-up-all-force:
-	docker-compose down && docker-compose up --force-recreate
+up-all-force: build
+	docker-compose down
+	docker-compose up --force-recreate
 
 
 up-dev: build
-	docker-compose down && docker-compose up --force-recreate
+	docker-compose down
+	docker-compose up --force-recreate
 
 
 attach-dev:
