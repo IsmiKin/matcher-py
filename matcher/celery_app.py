@@ -1,6 +1,7 @@
 import os
 from celery import Celery
 
+
 app = Celery(
     'matcher',
     broker=os.environ.get('BROKER_URL', 'redis://localhost:6379/0'),
@@ -12,11 +13,8 @@ app.conf.update(
     accept_content=['json'],  # Ignore other content
     result_serializer='json',
     timezone='Europe/Oslo',
-    enable_utc=True,
-    result_persistent=True
+    enable_utc=True
 )
-
-app.conf.database_engine_options = {'echo': True}
 
 
 @app.task
