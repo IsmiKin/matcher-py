@@ -9,7 +9,7 @@ class SoundRecording(Base):
     id = Column(
         Integer,
         primary_key=True,
-        server_default=text("nextval('sound_recordings_id_seq'::regclass)")
+        autoincrement=True
     )
     artist = Column(Text, nullable=False)
     title = Column(Text, nullable=False)
