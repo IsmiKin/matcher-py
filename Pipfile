@@ -20,6 +20,7 @@ pykwalify = "*"
 alembic = "*"
 celery = "*"
 redis = "*"
+firebase-admin = "*"
 
 [dev-packages]
 pytest = "*"

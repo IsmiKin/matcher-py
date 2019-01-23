@@ -15,7 +15,9 @@ jobs:
 
         - run:
             name: Build docker image
-            command: >
+            command: |
+              mkdir matcher/creds
+              echo $FIREBASE_ENCODED_CREDS | base64 -di > matcher/creds/client-secret.json
               docker build -t ismikin/matcher-py:${CIRCLE_WORKFLOW_ID} .
 
         - run:
