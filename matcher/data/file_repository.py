@@ -4,6 +4,8 @@ import pyrebase
 
 
 config = {}
+
+# TODO: Refactor path into ENV variables
 with open('matcher/firebase/config.json') as file_config:
     config = json.load(file_config)
 
