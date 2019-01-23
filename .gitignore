@@ -30,7 +30,6 @@ wheels/
 MANIFEST
 
 # Firebase
-creds
 .firebase-creds.json
 encoded-creds.json
 matcher/firebase/config.json
