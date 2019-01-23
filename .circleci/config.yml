@@ -14,8 +14,10 @@ jobs:
             docker_layer_caching: true
 
         - run:
-            name: Build docker image
-            command: >
+            name: Build docker image with Firebase config
+            command: |
+              echo $FIREBASE_ENCODED_CREDS | base64 -di > matcher/firebase/creds/.firebase-creds.json
+              echo $FIREBASE_ENCODED_CONFIG | base64 -di > matcher/firebase/config.json
               docker build -t ismikin/matcher-py:${CIRCLE_WORKFLOW_ID} .
 
         - run:

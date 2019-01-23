@@ -29,6 +29,11 @@ wheels/
 *.egg
 MANIFEST
 
+# Firebase
+.firebase-creds.json
+encoded-creds.json
+matcher/firebase/config.json
+
 # Tests
 test-reports/
 

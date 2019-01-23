@@ -7,6 +7,7 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+# requests = "2.11.1"
 sqlalchemy = "*"
 psycopg2-binary = "*"
 fire = "*"
@@ -20,6 +21,8 @@ pykwalify = "*"
 alembic = "*"
 celery = "*"
 redis = "*"
+firebase-admin = "*"
+pyrebase = {git = "https://github.com/heston/Pyrebase.git",ref = "master"}
 
 [dev-packages]
 pytest = "*"
