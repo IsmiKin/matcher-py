@@ -34,6 +34,9 @@ MANIFEST
 encoded-creds.json
 matcher/firebase/config.json
 
+# Temp folders (project logic)
+tmp_process
+
 # Tests
 test-reports/
 

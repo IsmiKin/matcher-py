@@ -1,4 +1,5 @@
 import os
+import errno
 import re
 import csv
 import logging
@@ -48,3 +49,11 @@ def get_file_hash(filename, modification_time):
     ).encode('utf-8')
     md5_file_hash = hashlib.md5(file_hash_string)
     return md5_file_hash.hexdigest()
+
+
+def silent_remove(filename):
+    try:
+        os.remove(filename)
+    except OSError as e:
+        if e.errno != errno.ENOENT:
+            raise

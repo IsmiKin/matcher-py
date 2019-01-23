@@ -25,8 +25,6 @@ def process_file_endpoint():
     """
     params = request.get_json()
 
-    payload = process_new_file(
-        'pika'
-    )
+    payload = process_new_file(params)
 
     return generate_response(payload)
