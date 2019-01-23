@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "c68b693b1d13dcd5d435f3165b12b106f063659bb65906eb2f32c610a5799f9f"
+            "sha256": "6885974a47ce4db0bdb165afcb28d2658365f2d1a813fba0a1f892ac7dc1d1ae"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -404,6 +404,10 @@
             ],
             "index": "pypi",
             "version": "==1.7.0"
+        },
+        "pyrebase": {
+            "git": "https://github.com/heston/Pyrebase.git",
+            "ref": "2c152ae56f83bc653bf6204a3c9f68fa97b9d64a"
         },
         "python-dateutil": {
             "hashes": [

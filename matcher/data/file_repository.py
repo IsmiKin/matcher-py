@@ -1,26 +1,23 @@
 import fire
+import json
+import pyrebase
 
-import firebase_admin
-from firebase_admin import credentials, storage
 
+config = {}
+with open('matcher/firebase/config.json') as file_config:
+    config = json.load(file_config)
 
-cred = credentials.Certificate('matcher/creds/.firebase-creds.json')
+firebase = pyrebase.initialize_app(config)
 
-firebase_app = firebase_admin.initialize_app(
-    cred,
-    {'storageBucket': 'matcher-py.appspot.com'}
-)
-
-bucket = storage.bucket(app=firebase_app)
+storage = firebase.storage()
 
 
 def get_csv_file_from_storage():
-    blob = bucket.blob("sound_recordings_input_report.csv")
-    print(blob)
+    storage.child("sound_recordings_input_report.csv").download('pika.csv')
+    url = storage.child("sound_recordings_input_report.csv").get_url(
+        config["apiKey"]
+        )
+    print(url)
 
 
-# def main():
 fire.Fire()
-
-
-# main()

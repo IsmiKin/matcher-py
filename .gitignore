@@ -30,9 +30,10 @@ wheels/
 MANIFEST
 
 # Firebase
-creds/
+creds
 .firebase-creds.json
 encoded-creds.json
+matcher/firebase/config.json
 
 # Tests
 test-reports/

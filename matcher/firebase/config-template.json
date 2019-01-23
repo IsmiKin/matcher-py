@@ -1,0 +1,14 @@
+{
+    "__README__": "Copy this file into config.json.
+      Edit the values from the ones in your Firebase Console (or GCP).
+      'serviceAccount' it's the path to your Firebase Creds, you can get from
+      https://console.firebase.google.com/project/<proj_name>/settings/serviceaccounts/adminsdk
+    ",
+    "apiKey": "<apiKey>",
+    "authDomain": "<proj_id>.firebaseapp.com",
+    "databaseURL": "https://<proj_id>.firebaseio.com",
+    "projectId": "<proj_id>",
+    "storageBucket": "<proj_id>.appspot.com",
+    "messagingSenderId": "<messagingId>",
+    "serviceAccount": "matcher/firebase/creds/.firebase-creds.json"
+}
