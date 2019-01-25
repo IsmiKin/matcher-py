@@ -1,11 +1,21 @@
-# matcher-py
+===============================
+matcher-py
+===============================
 [![CircleCI](https://circleci.com/gh/IsmiKin/matcher-py.svg?style=svg)](https://circleci.com/gh/IsmiKin/matcher-py)
 [![Coverage Status](https://coveralls.io/repos/github/IsmiKin/matcher-py/badge.svg?branch=master)](https://coveralls.io/github/IsmiKin/matcher-py?branch=master)
 [![codecov](https://codecov.io/gh/IsmiKin/matcher-py/branch/master/graph/badge.svg)](https://codecov.io/gh/IsmiKin/matcher-py)
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=IsmiKin_matcher-py&metric=alert_status)](https://sonarcloud.io/dashboard?id=IsmiKin_matcher-py)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=IsmiKin_matcher-py&metric=bugs)](https://sonarcloud.io/dashboard?id=IsmiKin_matcher-py)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=IsmiKin_matcher-py&metric=code_smells)](https://sonarcloud.io/dashboard?id=IsmiKin_matcher-py)
+[![Maintainability](https://api.codeclimate.com/v1/badges/ac0051bd87f92e6bc6cf/maintainability)](https://codeclimate.com/github/IsmiKin/matcher-py/maintainability)
+[![Test Coverage](https://api.codeclimate.com/v1/badges/ac0051bd87f92e6bc6cf/test_coverage)](https://codeclimate.com/github/IsmiKin/matcher-py/test_coverage)
+
+
 
 Just another small project - matching inputs from results and storing them.
 
-# Setup
+Setup
+=======
 
 ## Pre-requisites
 
