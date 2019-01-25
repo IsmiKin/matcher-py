@@ -7,6 +7,8 @@ from flask import Flask
 import simplejson
 import logging
 
+from matcher.api.views import process_file
+
 stream_handler = logging.StreamHandler()
 log_format = logging.Formatter(
     fmt='%(asctime)s %(name)s.%(levelname)s: %(message)s'
@@ -21,6 +23,8 @@ def create_app():
 
     app.logger.addHandler(stream_handler)
     app.logger.setLevel(logging.DEBUG)
+
+    app.register_blueprint(process_file)
 
     @app.errorhandler(404)
     def page_not_found(e):

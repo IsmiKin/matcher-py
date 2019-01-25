@@ -34,6 +34,9 @@ jobs:
                 --name test-run \
                 ismikin/matcher-py:${CIRCLE_WORKFLOW_ID}-test-img
 
+        # TODO: Add trigger for SonarCloud (SonarQube) -
+        #  meantime Codeclimate should run on PR/branching updates
+
         # Repeat tests to upload to coveralls
         # FIXME: it because the source changes, so inside the docker it's
         # on /src so it doesnt match with the repo file structure

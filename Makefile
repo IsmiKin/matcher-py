@@ -34,6 +34,10 @@ install:
 	pipenv install
 
 
+run-api:
+	gunicorn --reload -b 0.0.0.0:5000 matcher.api.server:app
+
+
 build:
 	docker-compose build
 

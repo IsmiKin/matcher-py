@@ -34,8 +34,12 @@ MANIFEST
 encoded-creds.json
 matcher/firebase/config.json
 
+# Temp folders (project logic)
+tmp_process
+
 # Tests
 test-reports/
+.scannerwork
 
 # PyInstaller
 #  Usually these files are written by a python script from a template

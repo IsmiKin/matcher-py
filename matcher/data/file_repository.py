@@ -1,7 +1,6 @@
-import fire
+
 import json
 import pyrebase
-
 
 config = {}
 
@@ -14,12 +13,9 @@ firebase = pyrebase.initialize_app(config)
 storage = firebase.storage()
 
 
-def get_csv_file_from_storage():
-    storage.child("sound_recordings_input_report.csv").download('pika.csv')
-    url = storage.child("sound_recordings_input_report.csv").get_url(
-        config["apiKey"]
-        )
-    print(url)
+def get_csv_file_from_storage(filepath):
+    # TODO: Refactor path into ENV variables
+    temp_file_path = 'tmp_process/{}'.format(filepath)
+    storage.child(filepath).download(temp_file_path)
 
-
-fire.Fire()
+    return temp_file_path
