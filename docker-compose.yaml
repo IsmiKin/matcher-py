@@ -60,6 +60,9 @@ services:
     # command: tail -F /dev/null
     environment:
       DB_URL: postgresql://user_example:password_example@db:5432/matchers
+      # TODO: Research why suddenly it's required to add pythonpath to
+      # find the models module
+      PYTHONPATH: .
     links:
       - db
     depends_on:
@@ -81,12 +84,12 @@ services:
 
 
   ## Flask API to expose data
-  matcher-api:
+  api:
     image: matcher:staging
     entrypoint:
       - gunicorn
       - -b 0.0.0.0:5000
-      - matcher.api:app
+      - matcher.api.server:app
     links:
       - db
     environment:
@@ -97,7 +100,7 @@ services:
       - migration
 
   ## Celery worker to process data
-  matcher-celery:
+  celery-worker:
     image: matcher:staging
     entrypoint:
       - celery
@@ -124,6 +127,6 @@ services:
     links:
       - redis
     depends_on:
-      - matcher-celery
+      - celery-worker
     ports:
       - 8888:8888

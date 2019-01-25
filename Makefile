@@ -35,7 +35,7 @@ install:
 
 
 run-api:
-	gunicorn --reload matcher.api.server:app
+	gunicorn --reload -b 0.0.0.0:5000 matcher.api.server:app
 
 
 build:

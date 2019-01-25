@@ -1,9 +1,7 @@
 from sqlalchemy import or_
-from utils import validate_isrc, get_logger
+from ..utils import validate_isrc, get_logger
 
-from data.models import (SoundRecording, FilesProcessed, SoundRecordMatch,
-                         session
-                         )
+from .models import SoundRecording, FilesProcessed, SoundRecordMatch, session
 
 log = get_logger()
 

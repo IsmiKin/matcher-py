@@ -11,7 +11,7 @@
 from flask import Blueprint, request
 
 from .util import generate_response, handle_errors
-from .logic import process_file as process_new_file
+from .logic import call_process_file_task
 
 
 process_file = Blueprint('process_file', __name__)
@@ -25,6 +25,6 @@ def process_file_endpoint():
     """
     params = request.get_json()
 
-    payload = process_new_file(params)
+    payload = call_process_file_task(params)
 
     return generate_response(payload)

@@ -1,6 +1,6 @@
 import os
 from celery import Celery
-
+from matcher.tasks.process_file import process_file
 
 app = Celery(
     'matcher',
@@ -18,5 +18,5 @@ app.conf.update(
 
 
 @app.task
-def add(x, y):
-    return x + y
+def process_file_task(file_path):
+    return process_file(file_path)
